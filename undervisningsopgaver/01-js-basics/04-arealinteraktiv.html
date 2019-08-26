@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04 areal interaktiv</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <p>Længde</p>
+    <input type="text" id="laengde">
+    <p>bredde</p>
+    <input type="text" id="bredde">
+    <br>
+    <br>
+    <br>
+    <button>Klik her, for at regne areal</button>
+
+
+    <script>
+        document.querySelector("button").addEventListener("click", click_areal);
+
+        function click_areal() {
+            let length = document.querySelector("#laengde").value;
+            let width = document.querySelector("#laengde").value;
+            let areal = length * width;
+            let resultat = `Arealet er ${areal}`;
+
+            console.log(resultat);
+        }
+
+    </script>
+</body>
+
+</html>
