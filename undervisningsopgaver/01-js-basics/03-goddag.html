@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <title>03 Goddag</title>
+</head>
+
+<body>
+    <p>Skriv dit navn her</p>
+
+
+    <input type="text" id="name">
+
+    <button id="knap">
+        OK
+    </button>
+
+
+    <script>
+        document.querySelector("button").addEventListener("click", goddag_click)
+
+        function goddag_click() {
+            let navn = document.querySelector("#name").value;
+            console.log(`Hej ${navn}, ha' en go' dag!`)
+        }
+
+    </script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
