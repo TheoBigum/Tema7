@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>01 Select</title>
+</head>
+
+<body>
+
+    <div id="content">
+        <div>
+            <a href="https://kea.dk/">Kea.dk</a>
+        </div>
+        <div>
+            <a href="https://github.com/TheoBigum">GitHub</a>
+        </div>
+        <div>
+            <a href="http://mabe-kea.dk/E19/pics/frog.png">Frø</a>
+        </div>
+
+
+
+    </div>
+
+    <script>
+        const content = document.querySelector("#content");
+        const div1 = document.querySelector("#content div")
+        const div2 = document.querySelector("#content div + div")
+        const div3 = document.querySelector("#content div + div + div")
+        const link1 = document.querySelector("#content div a")
+        const link2 = document.querySelector("#content div + div a")
+        const link3 = document.querySelector("#content div + div + div a")
+
+
+        console.log(content);
+        console.log(div1);
+        console.log(div2);
+        console.log(div3);
+        console.log(link1);
+        console.log(link2);
+        console.log(link3);
+
+    </script>
+</body>
+
+</html>
