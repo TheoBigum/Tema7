@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <title>04 append</title>
+
+    <style>
+        .cirkel {
+            height: 200px;
+            width: 200px;
+            line-height: 100px;
+            border-radius: 50%;
+            text-align: center;
+            background-color: red;
+
+        }
+
+        .firkant {
+            height: 200px;
+            width: 200px;
+            line-height: 100px;
+            text-align: center;
+            background-color: green;
+        }
+
+    </style>
+
+
+</head>
+
+
+
+<body>
+
+    <div id="content">
+        <div class="firkant">
+
+        </div>
+
+        <div class="cirkel">
+
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        let frøUrl = `http://mabe-kea.dk/E19/pics/frog.png`;
+        let grisUrl = `http://mabe-kea.dk/E19/pics/pig.png`;
+        let foxUrl = `http://mabe-kea.dk/E19/pics/fox.png`;
+
+
+        document.querySelector(".firkant").innerHTML = `<img src=${frøUrl} alt="frø">`;
+        document.querySelector(".cirkel").innerHTML = `<img src=${grisUrl} alt="frø">`;
+        document.querySelector(".cirkel").innerHTML += `<img src=${foxUrl} alt="fox">`;
+
+    </script>
+
+
+
+
+</body>
+
+
+
+
+</html>
