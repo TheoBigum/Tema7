@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <title>06 kilkhop</title>
+
+    <style>
+        .cirkel {
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            text-align: center;
+            background-color: red;
+
+        }
+
+        .firkant {
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            text-align: center;
+            background-color: green;
+        }
+
+    </style>
+
+
+</head>
+
+
+
+<body>
+
+    <div id="content">
+        <div class="firkant">
+
+        </div>
+
+        <div class="cirkel">
+
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+
+
+        function start() {
+            console.log("content loadet");
+            let frøUrl = `http://mabe-kea.dk/E19/pics/frog.png`;
+            let grisUrl = `http://mabe-kea.dk/E19/pics/pig.png`;
+
+            document.querySelector(".firkant").innerHTML = `<img src=${frøUrl} alt="frø">`;
+            document.querySelector(".cirkel").innerHTML = `<img src=${grisUrl} alt="frø">`;
+        }
+
+
+
+        document.querySelector(".firkant").addEventListener("click", clickGrøn);
+        document.querySelector(".cirkel").addEventListener("click", clickRød);
+
+
+        function clickGrøn() {
+            console.log("ClickGrøn");
+            document.querySelector(".firkant").removeEventListener("click", clickGrøn);
+
+
+            let frøUrl = `http://mabe-kea.dk/E19/pics/frog.png`;
+            let grisUrl = `http://mabe-kea.dk/E19/pics/pig.png`;
+
+            document.querySelector(".firkant").innerHTML = `<img src=${grisUrl} alt="frø">`;
+            document.querySelector(".cirkel").innerHTML = `<img src=${frøUrl} alt="frø">`;
+
+
+            document.querySelector(".firkant").addEventListener("click", clickGrønIgen);
+
+
+        }
+
+        function clickGrønIgen() {
+            console.log("ClickGrønIgen");
+            document.querySelector(".firkant").removeEventListener("click", clickGrønIgen);
+
+
+            let frøUrl = `http://mabe-kea.dk/E19/pics/frog.png`;
+            let grisUrl = `http://mabe-kea.dk/E19/pics/pig.png`;
+
+            document.querySelector(".firkant").innerHTML = `<img src=${frøUrl} alt="frø">`;
+            document.querySelector(".cirkel").innerHTML = `<img src=${grisUrl} alt="frø">`;
+
+
+            document.querySelector(".firkant").addEventListener("click", clickGrøn);
+        }
+
+
+
+
+        function clickRød() {
+            console.log("clickRød")
+
+            document.querySelector(".firkant").removeEventListener("click", clickGrøn);
+        }
+
+    </script>
+
+
+
+
+</body>
+
+
+
+
+</html>
