@@ -3,24 +3,38 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>05 vis alle dyr</title>
+    <title>05 vis med template</title>
+    <style>
+        .data-container {
+            height: 250px;
+            width: 800px;
+            border-color: black;
+            border-width: 2px;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <section id="liste">
+    <section class="data-container" id="liste">
 
     </section>
 
-
-
-
-
-
+    <template>
+        <article>
+            <h1 class="navn"></h1>
+            <img src="" alt="">
+            <p class="type"></p>
+            <p class="levested"></p>
+        </article>
+    </template>
 
 
     <script>
         document.addEventListener("DOMContentLoaded", start);
+
+
 
         function start() {
             console.log("DOM loaded")
@@ -56,21 +70,26 @@
                     "type": "krybdyr",
                     "billede": "http://mabe-kea.dk/E19/pics/kroko.jpg",
                     "levested": "naturen"
-                }
-            ]
+                },
+            ];
 
-            console.log(dyr);
-
-
-            const listeVisning = document.querySelector("#liste");
+            const container = document.querySelector(".data-container");
+            const dyrTemplate = document.querySelector("template");
             dyr.forEach(dyr => {
-                listeVisning.innerHTML += `<P>${dyr.navn}, ${dyr.type} fra ${dyr.levested}<p>`
-
+                let klon = dyrTemplate.cloneNode(true).content;
+                klon.querySelector(".navn").textContent = dyr.navn;
+                klon.querySelector(".type").textContent = `type: ${dyr.type}`;
+                klon.querySelector("img").src = dyr.billede;
+                klon.querySelector(".levested").textContent = `levested: ${dyr.levested}`;
+                container.appendChild(klon);
 
             })
 
         }
     </script>
+
+
+
 
 
 
