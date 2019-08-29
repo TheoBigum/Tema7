@@ -3,13 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>05 vis med template</title>
+    <title>06 vis med template</title>
     <style>
-        .data-container {
+        .style {
             height: 250px;
             width: 800px;
-            border-color: black;
+            border: solid black;
             border-width: 2px;
+            margin: 5px;
+            padding: 5px;
         }
     </style>
 
@@ -22,7 +24,7 @@
     </section>
 
     <template>
-        <article>
+        <article class="style">
             <h1 class="navn"></h1>
             <img src="" alt="">
             <p class="type"></p>
@@ -33,8 +35,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", start);
-
-
 
         function start() {
             console.log("DOM loaded")
