@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>02 Vis objekt</title>
+</head>
+
+<body>
+
+    <article>
+        <p></p>
+        <img src="" alt="">
+
+    </article>
+
+
+
+
+
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            console.log("DOM loaded")
+
+            let dyr = {
+                "navn": "gris",
+                "type": "pattedyr",
+                "billede": "http://mabe-kea.dk/E19/pics/pig.png",
+                "levested": "grisefarme"
+            }
+
+            let tekst = `dyr: ${dyr.navn}, type: ${dyr.type}, billede: ${dyr.billede} levested ${dyr.levested}`
+
+            console.log(tekst);
+
+            const destination = document.querySelector("article");
+
+            destination.querySelector("p").textContent = `dyr: ${dyr.navn}, type: ${dyr.type}, levested: ${dyr.levested}`
+            destination.querySelector("img").src = dyr.billede;
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

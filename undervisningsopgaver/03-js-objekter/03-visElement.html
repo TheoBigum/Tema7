@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>03 Vis Element</title>
+</head>
+
+<body>
+
+    <article>
+        <h2></h2>
+        <img src="" alt="">
+        <p></p>
+        <p></p>
+
+    </article>
+
+
+
+
+
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            console.log("DOM loaded")
+
+            let dyr = {
+                "navn": "Gris",
+                "type": "Pattedyr",
+                "billede": "http://mabe-kea.dk/E19/pics/pig.png",
+                "levested": "Grisefarme"
+            }
+
+            let tekst = `dyr: ${dyr.navn}, type: ${dyr.type}, billede: ${dyr.billede} levested: ${dyr.levested}`
+
+            console.log(tekst);
+
+            const destination = document.querySelector("article");
+
+            destination.querySelector("h2").textContent = `dyr: ${dyr.navn}`
+            destination.querySelector("img").src = dyr.billede;
+            destination.querySelector("p").textContent = `type: ${dyr.type}`
+            destination.querySelector("p+p").textContent = `levested: ${dyr.levested}`
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>
