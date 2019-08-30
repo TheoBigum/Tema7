@@ -19,6 +19,7 @@
         .style {
             border: 2px solid black;
             padding: 10px;
+            background-color: #e3e3e3;
 
         }
 
@@ -43,7 +44,7 @@
         <template>
             <article class="style">
                 <h2></h2>
-                <h2></h2>
+                <a href=""></a>
                 <img src="" alt="">
 
             </article>
@@ -72,7 +73,8 @@
                 allePersoner.feed.entry.forEach(person => {
                     const klon = temp.cloneNode(true).content;
                     klon.querySelector("h2").textContent = person.gsx$navn.$t;
-                    klon.querySelector("h2+h2").textContent = person.gsx$github.$t;
+                    klon.querySelector("a").textContent = `www.github.com/${person.gsx$github.$t}`;
+                    klon.querySelector("a").href = `www.github.com/${person.gsx$github.$t}`;
                     klon.querySelector("img").src = person.gsx$billede.$t;
                     dest.appendChild(klon);
                 })
