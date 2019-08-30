@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Person Liste Opgave</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        img {
+            width: 20%;
+        }
+
+        .modtager {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-gap: 10px;
+        }
+
+        .style {
+            border: 2px solid black;
+            padding: 10px;
+
+        }
+
+        @media screen and (min-width:600px) {
+            .modtager {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media screen and (min-width:1000px) {
+                .modtager {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+
+            }
+
+    </style>
+</head>
+
+<body>
+
+    <section class="modtager" id="liste">
+        <template>
+            <article class="style">
+                <h2></h2>
+                <h2></h2>
+                <img src="" alt="">
+
+            </article>
+        </template>
+
+    </section>
+
+
+    <script>
+        let allePersoner = [];
+
+        document.addEventListener("DOMContentLoaded", getJson);
+
+
+        const dest = document.querySelector("#liste");
+        const temp = document.querySelector("template");
+
+        async function getJson() {
+            let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json");
+            console.log(jsonData);
+            allePersoner = await jsonData.json();
+            visPersoner();
+
+
+            function visPersoner() {
+                allePersoner.feed.entry.forEach(person => {
+                    const klon = temp.cloneNode(true).content;
+                    klon.querySelector("h2").textContent = person.gsx$navn.$t;
+                    klon.querySelector("h2+h2").textContent = person.gsx$github.$t;
+                    klon.querySelector("img").src = person.gsx$billede.$t;
+                    dest.appendChild(klon);
+                })
+            }
+        }
+
+    </script>
+</body>
+
+</html>

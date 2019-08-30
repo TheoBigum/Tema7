@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head>
+    <title>Visalle</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .style {
+            border: 1px solid black;
+            margin: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <template>
+        <article class="style">
+            <h2></h2> <img src="" alt="">
+            <p id="type"></p>
+            <p id="levested"></p>
+        </article>
+    </template>
+
+    <section id="liste"></section>
+
+
+    <script>
+        let alleDyr = [];
+
+        document.addEventListener("DOMContentLoaded", getJson);
+
+
+        const dest = document.querySelector("#liste");
+        const temp = document.querySelector("template");
+
+        async function getJson() {
+            let jsonData = await fetch("dyr.json");
+            console.log("jsonData");
+            alleDyr = await jsonData.json();
+            visDyr();
+
+
+            function visDyr() {
+                alleDyr.forEach(dyr => {
+                    const klon = temp.cloneNode(true).content;
+                    klon.querySelector("h2").textContent = dyr.navn;
+                    klon.querySelector("img").src = dyr.billede;
+                    klon.querySelector("#type").textContent = dyr.type;
+                    klon.querySelector("#levested").href += dyr.levested;
+                    dest.appendChild(klon);
+                })
+            }
+            getJson();
+        }
+    </script>
+</body></html>
