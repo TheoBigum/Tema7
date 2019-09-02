@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Person Liste Opgave</title>
+    <title>02 Knapper</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -52,6 +52,13 @@
     </style>
 </head>
 
+<header>
+    <button class="filter_valgt" data-køn="alle">Alle</button>
+    <button class="filter" data-køn="m">Mænd</button>
+    <button class="filter" data-køn="k">Kvinder</button>
+    <button class="filter" data-køn="andet">Andet</button>
+</header>
+
 <body>
 
     <section class="modtager" id="liste">
@@ -77,6 +84,7 @@
 
         const dest = document.querySelector("#liste");
         const temp = document.querySelector("template");
+        let filter = "k";
 
         async function getJson() {
             let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json");
@@ -87,14 +95,15 @@
 
             function visPersoner() {
                 allePersoner.feed.entry.forEach(person => {
+                    if (person.gsx$køn.$t == filter) {
+                        const klon = temp.cloneNode(true).content;
+                        klon.querySelector("img").src = person.gsx$billede.$t;
+                        klon.querySelector("h2").textContent = person.gsx$navn.$t;
+                        klon.querySelector("a").textContent = `www.github.com/${person.gsx$github.$t}`;
+                        klon.querySelector("a").href = `www.github.com/${person.gsx$github.$t}`;
 
-                    const klon = temp.cloneNode(true).content;
-                    klon.querySelector("img").src = person.gsx$billede.$t;
-                    klon.querySelector("h2").textContent = person.gsx$navn.$t;
-                    klon.querySelector("a").textContent = `www.github.com/${person.gsx$github.$t}`;
-                    klon.querySelector("a").href = `www.github.com/${person.gsx$github.$t}`;
-
-                    dest.appendChild(klon);
+                        dest.appendChild(klon);
+                    }
                 })
             }
         }

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>03 Virker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        img {
+            width: 35%;
+        }
+
+        body {
+            background: #c4c4c4;
+            margin: 20px;
+        }
+
+        article:nth-child(odd) {
+            border-radius: 150px 0px;
+            border: 30px solid #ffb833;
+        }
+
+        article:nth-child(even) {
+            border-radius: 0px 150px;
+            border: 30px solid purple;
+        }
+
+        .modtager {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-gap: 15px;
+        }
+
+        .style {
+            padding: 50px;
+            background: #dedede;
+
+        }
+
+        .valgt {
+            background-color: #00d8ff;
+        }
+
+        button {
+            border-radius: 30px;
+            width: 130px;
+            height: 40px;
+            margin: 20px;
+            margin-left: 150px;
+            font-size: 1rem;
+        }
+
+        h1 {}
+
+
+        @media screen and (min-width:600px) {
+            .modtager {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media screen and (min-width:1000px) {
+                .modtager {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+
+            }
+
+    </style>
+</head>
+
+<h1>Alle</h1>
+<nav>
+    <button class="filter valgt" data-køn="alle">Alle</button>
+    <button class="filter" data-køn="m">Mænd</button>
+    <button class="filter" data-køn="k">Kvinder</button>
+    <button class="filter" data-køn="andet">Andet</button>
+</nav>
+
+<body>
+
+    <section class="modtager" id="liste">
+        <template>
+            <article class="style">
+                <h2></h2>
+                <img src="" alt="">
+                <br>
+                <a href=""></a>
+            </article>
+        </template>
+
+    </section>
+
+
+    <script>
+        let allePersoner = [];
+
+        document.addEventListener("DOMContentLoaded", getJson);
+
+
+        const dest = document.querySelector("#liste");
+        const temp = document.querySelector("template");
+        let filter = "alle";
+
+        async function getJson() {
+            let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json");
+            console.log(jsonData);
+            allePersoner = await jsonData.json();
+            visPersoner();
+
+            function visPersoner() {
+                console.log("visPersoner")
+                dest.innerHTML = "";
+                allePersoner.feed.entry.forEach(person => {
+                    if (filter == "alle" || filter == person.gsx$køn.$t) {
+                        const klon = temp.cloneNode(true).content;
+                        klon.querySelector("img").src = person.gsx$billede.$t;
+                        klon.querySelector("img").alt = person.gsx$navn.$t;
+                        klon.querySelector("h2").textContent = person.gsx$navn.$t;
+                        klon.querySelector("a").textContent = `www.github.com/${person.gsx$github.$t}`;
+                        klon.querySelector("a").href = `www.github.com/${person.gsx$github.$t}`;
+                        dest.appendChild(klon);
+                    }
+                })
+
+                addEventListenersToButtons()
+            }
+
+
+            function addEventListenersToButtons() {
+                console.log("klik knap")
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.addEventListener("click", filtrering);
+                })
+            }
+
+            function filtrering() {
+                console.log("filtrering")
+                filter = this.dataset.køn;
+                document.querySelector("h1").textContent = this.textContent;
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.classList.remove("valgt");
+                })
+                this.classList.add("valgt");
+                visPersoner();
+
+
+            }
+        }
+
+    </script>
+
+
+</body>
+
+</html>
