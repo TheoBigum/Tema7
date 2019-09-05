@@ -11,17 +11,18 @@
             width: 100%;
         }
 
-        body {
+        html {
             margin: 0;
             padding: 0;
+            background-color: #500000;
         }
 
         header {
             width: 100vw;
-            height: 45vh;
+            height: 50vh;
             background-color: #500000;
-            padding: 0;
             margin: 0;
+            padding: 0;
         }
 
         #data_container {
@@ -37,23 +38,22 @@
         .ret {
             background-color: #efefef;
             padding: 20px;
+            border-radius: 10px;
         }
 
         h1 {
             font-size: 4rem;
             font-family: 'Staatliches', cursive;
             color: white;
-            margin-left: 110px;
+            text-align: center;
         }
 
         h4 {
             font-size: 2rem;
             font-family: 'Staatliches', cursive;
             color: white;
-            margin-left: 190px;
-            margin-top: 0;
-            margin-bottom: 0px;
-            padding-top: 10px;
+            text-align: center;
+            padding-top: 50px;
         }
 
         h2 {
@@ -144,6 +144,9 @@
             nav {
                 position: fixed;
                 grid-template-columns: repeat(1, 1fr);
+                padding: 0;
+                margin-left: 40px;
+
 
             }
         }
@@ -154,23 +157,21 @@
                 font-size: 6rem;
                 font-family: 'Staatliches', cursive;
                 color: white;
-                margin-left: 500px;
-                margin-top: 0;
+                text-align: center;
             }
 
             h3 {
                 font-size: 1.5rem;
                 color: white;
                 font-family: 'Staatliches', cursive;
-                margin-left: 200px;
+                text-align: center;
             }
 
             h4 {
                 font-size: 2rem;
                 font-family: 'Staatliches', cursive;
                 color: white;
-                margin-left: 650px;
-                padding: 0;
+                text-align: center;
 
             }
 
@@ -181,24 +182,24 @@
             }
 
             .indhold {
-                width: 60vw;
-                height: 70vh;
+                width: 50vw;
+                height: 80vh;
                 background-color: #aaaaaa;
-                margin-left: 250px;
                 padding: 30px;
-                z-index: 100;
+                z-index: 90;
                 overflow: scroll;
+                margin-left: 350px;
             }
 
             #data_container {
                 grid-template-columns: repeat(2, 1fr);
                 margin-left: 180px;
-                margin-top: 20px;
+                margin-top: 100px;
             }
 
             nav {
-                position: fixed;
                 grid-template-columns: repeat(1, 1fr);
+                bottom: 170px;
 
             }
         }
@@ -258,15 +259,15 @@
         const temp = document.querySelector("template");
         let kategori = "alle";
         let popUp = document.querySelector(".indhold");
-        //Hent JSON fil i asynkron funktion
+
         async function getJson() {
             console.log("getJson");
-            //Henter data filen
+
             const jsonData = await fetch("https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json");
-            //Den hentede data tolkes som data
+
             retter = await jsonData.json();
             console.log(retter);
-            //Kald funktionen der viser data i DOM
+
             visRetter();
         }
 

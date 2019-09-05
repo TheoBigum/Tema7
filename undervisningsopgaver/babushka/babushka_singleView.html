@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Bitter|Staatliches&display=swap" rel="stylesheet">
+    <title>Babushka single view</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        header {
+            width: 100vw;
+            background-color: #500000;
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-family: 'Staatliches', cursive;
+            text-align: center;
+            font-size: 6rem;
+            color: white;
+        }
+
+        h4 {
+            font-size: 2rem;
+            font-family: 'Staatliches', cursive;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: black;
+            font-family: 'Bitter', serif;
+        }
+
+        h3 {
+            font-size: 3rem;
+            color: white;
+            font-family: 'Staatliches', cursive;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.4rem;
+            color: black;
+            font-family: 'Bitter', serif;
+        }
+
+        .indhold {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .enkelt_ret {
+            width: 80vw;
+            min-height: calc(100vh - 118px);
+            max-width: 600px;
+            background-color: #aaaaaa;
+            padding: 20px;
+        }
+
+        .enkelt_ret img {
+            width: 100%;
+        }
+
+        .tilbage {
+            font-family: 'Staatliches', cursive;
+            font-size: 2rem;
+            background-color: transparent;
+            position: absolute;
+            top: 60px;
+            left: 10px;
+            color: white;
+        }
+
+        .pris {
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div id="header">
+            <h4>Bistro</h4>
+            <h1>Babushka</h1>
+            <h3 id="ret_navn"></h3>
+        </div>
+        <button class="tilbage">Tilbage</button>
+    </header>
+    <section class="indhold">
+        <article class="enkelt_ret">
+            <h2 class="single_navn"></h2>
+            <img src="" alt="">
+            <p class="fed">Beskrivelse:</p>
+            <p class="lang"></p>
+            <p class="fed">Oprindelse:</p>
+            <p class="oprindelse"></p>
+            <p class="pris"></p>
+        </article>
+    </section>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+        let retter;
+        document.addEventListener("DOMContentLoaded", getJson);
+        async function getJson() {
+            console.log("getJson");
+            //Henter data filen
+            const jsonData = await fetch("https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json");
+            //Den hentede data tolkes som data
+            retter = await jsonData.json();
+            console.log(retter);
+            //Kald funktionen der viser data i DOM
+            visRet();
+        }
+
+        function visRet() {
+            retter.feed.entry.forEach(ret => {
+                if (ret.gsx$id.$t == id) {
+                    //LANG
+                    document.querySelector(".enkelt_ret .lang").textContent = ret.gsx$lang.$t;
+                    //BILLEDE
+                    document.querySelector(".enkelt_ret img").src = `imgs/large/${ret.gsx$billede.$t}.jpg`;
+                    document.querySelector(".enkelt_ret img").alt = `Billede af ${ret.gsx$navn.$t}`;
+                    //OPRINDELSE
+                    document.querySelector(".enkelt_ret .oprindelse").textContent = ret.gsx$oprindelse.$t;
+                    //PRIS
+                    document.querySelector(".enkelt_ret .pris").textContent = `Pris: ${ret.gsx$pris.$t},-`;
+                    document.querySelector("#ret_navn").textContent = ret.gsx$navn.$t;
+                };
+            })
+        }
+        document.querySelector(".tilbage").addEventListener("click", () => {
+            history.back();
+        })
+    </script>
+</body></html>
