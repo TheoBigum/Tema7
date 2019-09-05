@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Babushka Opgave</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Bitter|Staatliches&display=swap" rel="stylesheet">
+    <style>
+        img {
+            width: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            width: 100vw;
+            height: 45vh;
+            background-color: #500000;
+            padding: 0;
+            margin: 0;
+        }
+
+        #data_container {
+            margin-top: 110px;
+            display: grid;
+            grid-template-columns: 1fr;
+            max-width: 1200px;
+            grid-gap: 40px;
+            padding: 30px;
+
+        }
+
+        .ret {
+            background-color: #efefef;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-family: 'Staatliches', cursive;
+            color: white;
+            margin-left: 110px;
+        }
+
+        h4 {
+            font-size: 2rem;
+            font-family: 'Staatliches', cursive;
+            color: white;
+            margin-left: 190px;
+            margin-top: 0;
+            margin-bottom: 0px;
+            padding-top: 10px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: black;
+            font-family: 'Bitter', serif;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            color: white;
+            font-family: 'Staatliches', cursive;
+            margin-left: 20px;
+        }
+
+        p {
+            font-size: 1.4rem;
+            color: black;
+            font-family: 'Bitter', serif;
+        }
+
+        .pris {
+            font-style: italic;
+            margin-top: 30px;
+        }
+
+        nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 15px;
+            margin-left: 20px;
+            font-family: 'Bitter', serif;
+        }
+
+        button {
+            height: 40px;
+            width: 130px;
+
+        }
+
+        .filter {
+            font-size: 0.8rem;
+            border-radius: 20px;
+            font-family: 'Bitter', serif;
+        }
+
+        .valgt {
+            background-color: #6d0000;
+            color: white;
+            border: white;
+            font-family: 'Bitter', serif;
+        }
+
+        #popup {
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.75);
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .indhold {
+            width: 70vw;
+            height: 90vh;
+            background-color: antiquewhite;
+            margin: 40px;
+            padding: 30px;
+            z-index: 100;
+            overflow: scroll;
+        }
+
+        .luk {
+            float: right;
+            font-size: 2.5rem;
+            background-color: transparent;
+            border: none;
+        }
+
+        @media only screen and (min-width: 600px) {
+            #data_container {
+                grid-template-columns: 1fr 1fr;
+                margin-left: 180px;
+            }
+
+            nav {
+                position: fixed;
+                grid-template-columns: repeat(1, 1fr);
+
+            }
+        }
+
+        @media only screen and (min-width: 1000px) {
+
+            h1 {
+                font-size: 6rem;
+                font-family: 'Staatliches', cursive;
+                color: white;
+                margin-left: 500px;
+                margin-top: 0;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                color: white;
+                font-family: 'Staatliches', cursive;
+                margin-left: 200px;
+            }
+
+            h4 {
+                font-size: 2rem;
+                font-family: 'Staatliches', cursive;
+                color: white;
+                margin-left: 650px;
+                padding: 0;
+
+            }
+
+            h2 {
+                font-size: 2rem;
+                color: black;
+                font-family: 'Bitter', serif;
+            }
+
+            .indhold {
+                width: 60vw;
+                height: 70vh;
+                background-color: #e2e2e2;
+                margin-left: 250px;
+                padding: 30px;
+                z-index: 100;
+                overflow: scroll;
+            }
+
+            #data_container {
+                grid-template-columns: repeat(2, 1fr);
+                margin-left: 180px;
+                margin-top: 20px;
+            }
+
+            nav {
+                position: fixed;
+                grid-template-columns: repeat(1, 1fr);
+
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <h4>Bistro</h4>
+        <h1>Babushka</h1>
+
+        <h3 id="kategori">Alle retter</h3>
+        <nav>
+            <button class="filter valgt" data-kategori="alle">Alle retter</button>
+            <button class="filter" data-kategori="forretter">Forretter</button>
+            <button class="filter" data-kategori="hovedretter">Hovedretter</button>
+            <button class="filter" data-kategori="desserter">Desserter</button>
+            <button class="filter" data-kategori="sideorders">Sideorders</button>
+            <button class="filter" data-kategori="drikkevarer">Drikkevarer</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="data_container"></section>
+    </main>
+
+    <template>
+        <article class="ret">
+            <img src="" alt="">
+            <h2 class="navn"></h2>
+            <p class="kort"></p>
+            <p class="pris"></p>
+        </article>
+    </template>
+
+    <div id="popup">
+        <section class="indhold">
+            <button class="luk">X</button>
+            <article class="enkelt_ret">
+                <h2 class="single_n"></h2>
+                <img src="" alt="">
+                <p class="lang"></p>
+                <p class="oprindelse"></p>
+                <p class="pris"></p>
+            </article>
+        </section>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", getJson);
+        let retter;
+        const dataContainer = document.querySelector("#data_container");
+        const temp = document.querySelector("template");
+        let kategori = "alle";
+        let popUp = document.querySelector(".indhold");
+        //Hent JSON fil i asynkron funktion
+        async function getJson() {
+            console.log("getJson");
+            //Henter data filen
+            const jsonData = await fetch("https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json");
+            //Den hentede data tolkes som data
+            retter = await jsonData.json();
+            console.log(retter);
+            //Kald funktionen der viser data i DOM
+            visRetter();
+        }
+
+        function visRetter() {
+            console.log("Vis filtrerede retter")
+            data_container.innerHTML = "";
+            retter.feed.entry.forEach(ret => {
+                if (kategori == "alle" || kategori == ret.gsx$kategori.$t) {
+                    let klon = temp.cloneNode(true).content;
+                    klon.querySelector("img").src = `imgs/small/${ret.gsx$billede.$t}-sm.jpg`;
+                    klon.querySelector("img").alt = `Billede af ${ret.gsx$navn.$t}`;
+                    klon.querySelector(".navn").textContent = ret.gsx$navn.$t;
+                    klon.querySelector(".kort").textContent = ret.gsx$kort.$t;
+                    klon.querySelector(".pris").textContent = `Pris: ${ret.gsx$pris.$t},-`;
+                    dataContainer.appendChild(klon);
+                    dataContainer.lastElementChild.addEventListener("click", () => {
+                        visSingle(ret);
+                    })
+                }
+            })
+
+            kategoriClick();
+        }
+
+        function visSingle(ret) {
+            console.log("Vis popup");
+            document.querySelector("#popup").style.display = "block";
+            document.querySelector(".enkelt_ret h2").textContent = ret.gsx$navn.$t;
+            document.querySelector(".enkelt_ret .lang").textContent = ret.gsx$lang.$t;
+            document.querySelector(".enkelt_ret img").src = `imgs/large/${ret.gsx$billede.$t}.jpg`;
+            document.querySelector(".enkelt_ret img").alt = `Billede af ${ret.gsx$navn.$t}`;
+            document.querySelector(".enkelt_ret .oprindelse").textContent = ret.gsx$oprindelse.$t;
+            document.querySelector(".enkelt_ret .pris").textContent = `Pris: ${ret.gsx$pris.$t},-`;
+            document.querySelector(".luk").addEventListener("click", () => {
+                document.querySelector("#popup").style.display = "none";
+            })
+        }
+
+        function kategoriClick() {
+            console.log("Kategori Click");
+            document.querySelectorAll(".filter").forEach(knap => {
+                knap.addEventListener("click", filtrering);
+            })
+        }
+
+        function filtrering() {
+            console.log("Filtrering");
+            kategori = this.dataset.kategori;
+            document.querySelector("#kategori").textContent = this.textContent;
+            document.querySelectorAll(".filter").forEach(knap => {
+                knap.classList.remove("valgt");
+            })
+            this.classList.add("valgt");
+            visRetter();
+        }
+
+    </script>
+</body>
+
+</html>

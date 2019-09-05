@@ -72,13 +72,13 @@
 
 <h1>Alle</h1>
 <nav>
-    <button class="filterKøn valgt" data-køn="alle">Alle</button>
-    <button class="filterKøn" data-køn="m">Mænd</button>
-    <button class="filterKøn" data-køn="k">Kvinder</button>
-    <button class="filterKøn" data-køn="andet">Andet</button>
-    <button class="filterHold" data-hold="alle">Alle hold</button>
-    <button class="filterHold" data-hold="a">Hold A</button>
-    <button class="filterHold" data-hold="b">Hold B</button>
+    <button class="filterKøn valgt" data-køn="alle" data-hold="alle">Alle</button>
+    <button class="filterKøn" data-køn="m" data-hold="alle">Mænd</button>
+    <button class="filterKøn" data-køn="k" data-hold="alle">Kvinder</button>
+    <button class="filterKøn" data-køn="andet" data-hold="alle">Andet</button>
+    <button class="filterHold" data-køn="alle" data-hold="alle">Alle hold</button>
+    <button class="filterHold" data-køn="alle" data-hold="a">Hold A</button>
+    <button class="filterHold" data-køn="alle" data-hold="b">Hold B</button>
 </nav>
 
 <body>
@@ -112,70 +112,70 @@
             console.log(jsonData);
             allePersoner = await jsonData.json();
             visPersoner();
+        }
 
-            function visPersoner() {
-                console.log("visPersoner")
-                dest.innerHTML = "";
-                allePersoner.feed.entry.forEach(person => {
-                    if ((filterKøn == "alle" || filterKøn == person.gsx$køn.$t) && (filterHold == "alle" || filterHold == person.gsx$hold.$t)) {
-                        const klon = temp.cloneNode(true).content;
-                        klon.querySelector("img").src = person.gsx$billede.$t;
-                        klon.querySelector("img").alt = person.gsx$navn.$t;
-                        klon.querySelector("h2").textContent = person.gsx$navn.$t;
-                        klon.querySelector("a").textContent = `www.github.com/${person.gsx$github.$t}`;
-                        klon.querySelector("a").href = `www.github.com/${person.gsx$github.$t}`;
-                        dest.appendChild(klon);
-                    }
-                })
+        function visPersoner() {
+            console.log("visPersoner")
+            dest.innerHTML = "";
+            allePersoner.feed.entry.forEach(person => {
+                if ((filterKøn == "alle" || filterKøn == person.gsx$køn.$t) && (filterHold == "alle" || filterHold == person.gsx$hold.$t)) {
+                    const klon = temp.cloneNode(true).content;
+                    klon.querySelector("img").src = person.gsx$billede.$t;
+                    klon.querySelector("img").alt = person.gsx$navn.$t;
+                    klon.querySelector("h2").textContent = person.gsx$navn.$t;
+                    klon.querySelector("a").textContent = `www.github.com/${person.gsx$github.$t}`;
+                    klon.querySelector("a").href = `www.github.com/${person.gsx$github.$t}`;
+                    dest.appendChild(klon);
+                }
+            })
 
-                addEventListenersToButtons()
-            }
+            addEventListenersToButtons()
+        }
 
 
-            function addEventListenersToButtons() {
-                //tester om
-                console.log("klik knap")
-                document.querySelectorAll(".filterKøn").forEach(elm => {
-                    elm.addEventListener("click", filtreringKøn);
-                })
-                document.querySelectorAll(".filterHold").forEach(elm => {
-                    elm.addEventListener("click", filtreringHold);
-                })
-            }
+        function addEventListenersToButtons() {
+            //tester om
+            console.log("klik knap")
+            document.querySelectorAll(".filterKøn").forEach(elm => {
+                elm.addEventListener("click", filtreringKøn);
+            })
+            document.querySelectorAll(".filterHold").forEach(elm => {
+                elm.addEventListener("click", filtreringHold);
+            })
+        }
 
-            function filtreringKøn() {
-                //Test om filtrerings funktionen bliver kaldt
-                console.log("filtreringKøn");
-                //sæt filter til at være lig med den valgte kategori indenfor køn
-                filterKøn = this.dataset.køn;
-                //Ændrer teksten i h1 til det valgte køn
-                document.querySelector("h1").textContent = this.textContent;
-                //fjerner valgt klassen fra alle elementer med klassen .filter
-                document.querySelectorAll(".filterKøn").forEach(elm => {
-                    elm.classList.remove("valgt");
-                })
-                //ligger klassen .valgt til den klikkede kategori
-                this.classList.add("valgt");
-                //kalder funktionen visPersoner igen
-                visPersoner();
-            }
+        function filtreringKøn() {
+            //Test om filtrerings funktionen bliver kaldt
+            console.log("filtreringKøn");
+            //sæt filter til at være lig med den valgte kategori indenfor køn
+            filterKøn = this.dataset.køn;
+            //Ændrer teksten i h1 til det valgte køn
+            document.querySelector("h1").textContent = this.textContent;
+            //fjerner valgt klassen fra alle elementer med klassen .filter
+            document.querySelectorAll(".filterKøn").forEach(elm => {
+                elm.classList.remove("valgt");
+            })
+            //ligger klassen .valgt til den klikkede kategori
+            this.classList.add("valgt");
+            //kalder funktionen visPersoner igen
+            visPersoner();
+        }
 
-            function filtreringHold() {
-                //Test om filtrerings funktionen bliver kaldt
-                console.log("filtreringHold");
-                //sæt filter til at være lig med den valgte kategori indenfor hold
-                fliterHold = this.dataset.hold;
-                //Ændrer teksten i h1 til det valgte køn
-                document.querySelector("h1").textContent = this.textContent;
-                //fjerner valgt klassen fra alle elementer med klassen .filter
-                document.querySelectorAll(".filterHold").forEach(elm => {
-                    elm.classList.remove("valgt");
-                })
-                //ligger klassen .valgt til den klikkede kategori
-                this.classList.add("valgt");
-                //kalder funktionen visPersoner igen
-                visPersoner();
-            }
+        function filtreringHold() {
+            //Test om filtrerings funktionen bliver kaldt
+            console.log("filtreringHold");
+            //sæt filter til at være lig med den valgte kategori indenfor hold
+            fliterHold = this.dataset.hold;
+            //Ændrer teksten i h1 til det valgte køn
+            document.querySelector("h1").textContent = this.textContent;
+            //fjerner valgt klassen fra alle elementer med klassen .filter
+            document.querySelectorAll(".filterHold").forEach(elm => {
+                elm.classList.remove("valgt");
+            })
+            //ligger klassen .valgt til den klikkede kategori
+            this.classList.add("valgt");
+            //kalder funktionen visPersoner igen
+            visPersoner();
         }
 
     </script>
